@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace dotpwa
 {
@@ -31,8 +32,10 @@ namespace dotpwa
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-
+            //services.AddSingleton(typeof(IHttpContextAccessor), typeof(HttpContextAccessor));
+            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddProgressiveWebApp();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
